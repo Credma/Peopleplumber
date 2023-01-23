@@ -72,3 +72,5 @@ D:\peopleplumber\peopleplumber\obj\Debug\peopleplumber.csproj.CoreCompileInputs.
 D:\peopleplumber\peopleplumber\obj\Debug\peopleplumber.csproj.CopyComplete
 D:\peopleplumber\peopleplumber\obj\Debug\peopleplumber.dll
 D:\peopleplumber\peopleplumber\obj\Debug\peopleplumber.pdb
+C:\Users\ryanb\OneDrive\Documents\Butler Plumbing\Git\PeoplePlumber\obj\Debug\peopleplumber.dll
+C:\Users\ryanb\OneDrive\Documents\Butler Plumbing\Git\PeoplePlumber\obj\Debug\peopleplumber.pdb
