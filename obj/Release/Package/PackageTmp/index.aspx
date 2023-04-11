@@ -205,34 +205,8 @@
 			font-weight: 600;
 		}
 
-		     .ReCaptchContainer
-                {
-                         margin: 0 auto;
-     text-align: left;
-                }
-
 
 	</style>
-
-	        <script type="text/javascript">
-                var shippingForm = new VarienForm('co-shipping-form');
-                Validation.addAllThese(
-                    [
-                        ['validate-zip-international', 'Please enter a valid uk zip code.E.G. GB1 6LY', function (v) {
-                            var country_id = 'GB'
-                            var country = $('billing:country_id');
-                            var element = $('billing:postcode');
-                            if (element && ('' != element.value) && (country_id == country.value)) {
-                                if (!element.value.match(/(^[A-Za-z]{1,2}[0-9]{1,2}[A-Z]?[\s][0-9][A-Za-z]{2}$)/)) {
-                                    return false;
-                                }
-                            }
-                            return true;
-                        }]
-                    ]
-                );
-            </script>
-
 
 
 <!-- TrustBox script -->
@@ -455,23 +429,8 @@
 									</select>
 								</div>
 							</div>
-							</div>
 
-							                                                                               
-                                        <!--   <td colspan="3">
-                                               <p align="left" style="color:white">Use a friend or family members User ID and earn them extra prebit bonus</p>
-                                          <input type="tel" class="form-control" placeholder="Invited By" id="Invitedby" name="Invitedby" />
-                                            </td>-->
-                                     		<div class="hidden-xs hidden-sm col-sm-1">&nbsp;</div>
-
-							<div class="col-xs-12 col-sm-6 col-md-3">
-													
-         <div id="ReCaptchContainer"></div>
-        <asp:Label ID="lblMessage1" runat="server"></asp:Label>
-                                    
-								</div>
-						
-
+								
 													<div class="col-xs-12 col-sm-12 col-md-3 col-md-push-1">
 								<div class="form-group">
 									<label>&nbsp;</label>
@@ -480,7 +439,7 @@
 							</div>
 
 							<div class="hidden-xs hidden-sm col-sm-1">&nbsp;</div>
-						
+						</div>
 
 									</form>
 			</div>
@@ -571,26 +530,6 @@
 		</div>
 	</div>
 </footer>
-
-	      <script src="https://www.google.com/recaptcha/api.js?onload=renderRecaptcha&render=explicit" async defer></script>
-    <script type="text/javascript">
-    var your_site_key = '6Ld8bnUlAAAAABOfHHuJHCgHb8lxZf-4buwlxtEZ';
-        var renderRecaptcha = function () {
-            grecaptcha.render('ReCaptchContainer', {
-                'sitekey': '6Ld8bnUlAAAAABOfHHuJHCgHb8lxZf-4buwlxtEZ',
-                'callback': reCaptchaCallback,
-                theme: 'light', //light or dark
-                type: 'image',// image or audio
-                size: 'normal'//normal or compact
-            });
-        };
-        var reCaptchaCallback = function (response) {
-            if (response !== '') {
-                document.getElementById('lblMessage1').innerHTML = "";
-            }
-        };
-    </script>
-
 
 </body>
 </html>

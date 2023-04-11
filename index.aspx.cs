@@ -1,18 +1,16 @@
-﻿using MimeKit;
-using System;
-using MailKit.Net.Smtp;
-using MailKit;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Newtonsoft.Json.Linq;
+using System.Data.SqlClient;
+using System.Data;
 using System.Configuration;
-using System.Net;
-using System.IO;
 
 namespace peopleplumber
+
+
 {
     public partial class index : System.Web.UI.Page
 
@@ -21,20 +19,21 @@ namespace peopleplumber
         public string errMsg = "";
 
         protected void Page_Load(object sender, EventArgs e)
-        { }
+        {
+
+        }
 
         protected void BtnGetMortgage_Click(object sender, EventArgs e)
         {
 
-            if (IsReCaptchValid())
+            try
             {
-                try
+
+                this.errMsg = "";
+
+                if (Request.Form.Count > 0)
                 {
 
-                    this.errMsg = "";
-
-                    if (Request.Form.Count > 0)
-                    {
                     string fullname = "";
                     string email = "";
                     string Mobile = "";
@@ -100,74 +99,23 @@ namespace peopleplumber
                     da.SelectCommand.Parameters.Add("@mortgagetype", System.Data.SqlDbType.VarChar, 250).Value = mortgagetype;
 
 
-                        da.Fill(new System.Data.DataTable());
+                    da.Fill(new System.Data.DataTable());
 
-                        Response.Write("<script>aalert(`Thank you`);</script>");
-
-                        var emailsend = new MimeMessage();
-                        emailsend.From.Add(new MailboxAddress("People Profit", "info@peopleprofit.info"));
-                        emailsend.To.Add(new MailboxAddress("paul Butler", "paul@credma.co.uk"));
-
-                        emailsend.Subject = "PeopleProfit Sign Up";
-                        emailsend.Body = new TextPart(MimeKit.Text.TextFormat.Plain)
-                        {
-                            Text = "New member sign up\n\n" + @fullname + "\n" + @email + "\n" + @Mobile + "\n" + @pcode + "\n" + @mortgagetype
-                        };
-                        using (var smtp = new SmtpClient())
-                        {
-                            smtp.Connect("peopleprofit.info", 465, true);
-
-                            // Note: only needed if the SMTP server requires authentication
-                            smtp.Authenticate("paul@peopleprofit.info", "Lapt0p99!!");
-
-                            smtp.Send(emailsend);
-                            smtp.Disconnect(true);
-                        }
-
-                        da.Dispose();
+                    da.Dispose();
 
 
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    this.errMsg = ex.Message;
                 }
 
             }
-
-            else
+            catch (Exception ex)
             {
-                lblMessage1.Text = "this is invalid";
+                this.errMsg = ex.Message;
             }
 
         }
 
 
-        public bool IsReCaptchValid()
-        {
-            var result = false;
-            var captchaResponse = Request.Form["g-recaptcha-response"];
-            var secretKey = "6Ld8bnUlAAAAAPrNgj8QSED2pJhmPdUM2Y0tHAdI";
-            var apiUrl = "https://www.google.com/recaptcha/api/siteverify?secret={0}&response={1}";
-            var requestUri = string.Format(apiUrl, secretKey, captchaResponse);
-            var request = (HttpWebRequest)WebRequest.Create(requestUri);
-
-            using (WebResponse response = request.GetResponse())
-            {
-                using (StreamReader stream = new StreamReader(response.GetResponseStream()))
-                {
-                    JObject jResponse = JObject.Parse(stream.ReadToEnd());
-                    var isSuccess = jResponse.Value<bool>("success");
-                    result = (isSuccess) ? true : false;
-                }
-            }
-            return result;
-        }
 
 
     }
-
-
 }
